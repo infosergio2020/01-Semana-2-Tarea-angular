@@ -1,7 +1,3 @@
-<header class="bg-primary text-white p-4">
-    <h1>TeatroxIdentidad</h1>
-</header>
-
 <div class="container content">
     <div class="row">
         <div class="col-md-6	offset-md-3">
@@ -12,40 +8,7 @@
                     <h3 class="mb-0 text-center">Obras de teatro</h3>
                 </div>
                 <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="nombre">Nombre *</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Ingresar nombre..." #nombre pattern="[A-Za-z]" required>
-                            <small>Nombre del titulo de la obra</small>
-                        </div>
-                        <div class=" form-group ">
-                            <label for="Imagen Url ">Imagen	Url</label>
-                            <input type="text " class="form-control " id="imagenUrl " placeholder="Ingresar url... " #url>
-                        </div>
-                        <div class="form-group ">
-                            <label for="descripciones ">Descripcion *</label>
-                            <input type="text " class="form-control " id="descripciones " placeholder="Ingresar descripcion... " #description>
-                            <small>es recomendable que ingrese una descripcion simple, clara y precisa</small>
-                        </div>
-                        <div class="form-group ">
-                            <label for="descripciones ">Etiquetas</label>
-                            <select class="form-control " name="select" [(ngModel)]="selectedTag">
-                                <option *ngFor="let etiq of etiquetas ">{{etiq}}</option> 
-                            </select>
-                            <small>este campo es opcional</small>
-                            <br>
-                            <div class="btn-group " role="group ">
-                                <button class="btn btn-outline-primary mt-2 " (click)="agregarTags(selectedTag)">agregar Tag</button>
-                                <button class="btn btn-outline-secondary mt-2 " (click)="quitarTags()">Quitar tags</button>
-                            </div>
-                        </div>
-                        <div class="btn-group btn-group-sm row " *ngIf="tags ">
-                            <button *ngFor="let tag of tags " class="btn btn-success ml-1 mt-1 ">{{tag}}</button>
-                        </div>
-                        <div class="form-group mt-2 ">
-                            <button type="submit " class="btn btn-primary " (click)="guardar(nombre.value,url.value,description.value) "> Guardar datos!</button>
-                        </div>
-                    </form>
+                    <app-form-obra-funcion (onItemAdded)="agregado($event)"></app-form-obra-funcion>
                 </div>
             </div>
         </div>
@@ -53,6 +16,24 @@
 
     <hr class="mb-5 ">
     <div class="row ">
-        <app-obras-detalle *ngFor="let o of obras " [obra]="o "></app-obras-detalle>
+        <app-obra-funcion *ngFor="let o of obrasApiClient.getAll(); let i=index" [obra]="o" [idx]="i+1" (clicked)="elegido($event)"></app-obra-funcion>
+    </div>
+
+    <hr class="mb-5">
+    <div class="row">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">imagenUrl</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of preferidos">
+                    <td>{{p.nombre}}</td>
+                    <td>{{p.imageUrl}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

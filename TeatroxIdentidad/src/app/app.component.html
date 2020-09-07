@@ -1,1 +1,16 @@
-<app-lista-obras></app-lista-obras>
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">
+        <h1>TeatroxIdentidad</h1>
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/obra']">Obra</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<router-outlet></router-outlet>

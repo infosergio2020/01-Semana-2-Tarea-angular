@@ -1,0 +1,31 @@
+<div class="card-content">
+    <div class="card-img">
+        <img src="https://placeimg.com/380/230/nature" alt="">
+        <span class="ml-3"><h4>{{position}}</h4></span>
+    </div>
+    <div class="card-desc">
+        <h3>Nombre: {{obra.nombre}}</h3>
+        <p>Descripcion: {{obra.descripcion}}</p>
+        <p>Link: {{obra.imageUrl}}</p>
+        <p>Categorias:</p>
+        <div class="btn-group btn-group-sm row" *ngIf="obra.etiquetas">
+            <ul style="list-style: none;">
+                <li *ngFor="let etiq of obra.etiquetas">
+                    <span [ngSwitch]="etiq">
+                        <button *ngSwitchCase="'comedia'" class="btn btn-danger ml-1 mt-1">{{etiq}}</button>
+                        <button *ngSwitchDefault class="btn btn-success ml-1 mt-1">{{etiq}}</button>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <br>
+
+        <div class="btn-group btn-group-sm row mt-2 ml-4">
+            <a class="btn-card mr-2" (click)="ir()">Ir!</a>
+            <a [routerLink]="['/obra']" class="btn-card">Ver Detalles</a>
+        </div>
+        <div class="row mt-4 ml-2">
+            <span class="btn btn-dark" *ngIf="obra.isSelected()"> <span ngNonBindeable> -PREFERIDO- </span> </span>
+        </div>
+    </div>
+</div>

@@ -1,16 +1,32 @@
 export class ObraDetalle {
-    nombre:string;
-    imageUrl:string;
-    descripcion:string;
-    etiquetas:string[];
+    private selected:boolean;
+    etiquetas:string[]
+    public votes = 0;
 
-    constructor(n:string, u:string,d:string,tags:string[]){
-        this.nombre = n;
-        this.imageUrl = u;
-        this.descripcion = d
+    constructor(public nombre:string, public imageUrl:string, public descripcion:string){
         this.etiquetas = [];
-        while (tags.length > 0) {
-            this.etiquetas.push(tags.pop());   
+        // while (etiquetas.length > 0) {
+        //             this.etiquetas.push(etiquetas.pop());   
+        //         }
+    }
+
+    setEtiquetas(etiquetas:string[]){
+        while (etiquetas.length > 0) {
+            this.etiquetas.push(etiquetas.pop());   
         }
+    }
+
+    isSelected():boolean{
+        return  this.selected;
+    }
+    setSelected(s:boolean){
+        this.selected = s;
+    }
+
+    voteUp():any{
+        this.votes++;
+    }
+    voteDown():any{
+        this.votes--;
     }
 }
