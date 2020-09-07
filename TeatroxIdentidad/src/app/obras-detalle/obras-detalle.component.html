@@ -1,0 +1,22 @@
+<div class="card-content">
+    <div class="card-img">
+        <img src="https://placeimg.com/380/230/nature" alt="">
+        <span class="ml-3"><h4>{{obra.nombre}}</h4></span>
+    </div>
+    <div class="card-desc">
+        <h3>{{obra.nombre}}</h3>
+        <p>{{obra.imageUrl}}</p>
+        <p>{{obra.descripcion}}</p>
+        <div class="btn-group btn-group-sm row" *ngIf="obra.etiquetas">
+            <ul style="list-style: none;">
+                <li *ngFor="let etiq of obra.etiquetas">
+                    <button class="btn btn-success ml-1 mt-1">{{etiq}}</button>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div class="btn-group btn-group-sm row mt-2" *ngIf="obra.etiquetas">
+            <a href="#" class="btn-card">Leer</a>
+        </div>
+    </div>
+</div>
