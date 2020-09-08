@@ -8,10 +8,17 @@ import { ObrasApiClient } from './../models/obras-api-client.Model';
   styleUrls: ['./lista-obras.component.css']
 })
 export class ListaObrasComponent implements OnInit {
-  preferidos: ObraDetalle[];
+  // preferidos: ObraDetalle[];
+  updates: string[];//esto es un log para preferidos 
   
   constructor(public obrasApiClient:ObrasApiClient) { 
-    this.preferidos = [];
+    // this.preferidos = [];
+    this.updates = [];
+    this.obrasApiClient.subscribeOnChange((o:ObraDetalle)=>{
+      if(o!=null){
+        this.updates.push('se ha elegido a '+o.nombre)
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -23,27 +30,24 @@ export class ListaObrasComponent implements OnInit {
   }
 
   elegido(o:ObraDetalle){
-
-    this.obrasApiClient.getAll().forEach(x => x.setSelected(false));
-    o.setSelected(true);
-
+    this.obrasApiClient.elegir(o);
     //La logica que sigue es para agregar elementos a una lista de preferidos
-    if (this.preferidos.length === 0) {
-      this.preferidos.push(o);  
-    } else {
-      let find = false 
-      let count = this.preferidos.length-1;
-      while( count >= 0){
-        if (this.preferidos[count] === o ){
-          find = true;
-          break;
-        }
-        count--;
-      }
-      if (!find){
-        this.preferidos.push(o);
-      }
-    }
-    console.log(this.preferidos)
+    // if (this.preferidos.length === 0) {
+    //   this.preferidos.push(o);  
+    // } else {
+    //   let find = false 
+    //   let count = this.preferidos.length-1;
+    //   while( count >= 0){
+    //     if (this.preferidos[count] === o ){
+    //       find = true;
+    //       break;
+    //     }
+    //     count--;
+    //   }
+    //   if (!find){
+    //     this.preferidos.push(o);
+    //   }
+    // }
+    // console.log(this.preferidos)
   }
 }

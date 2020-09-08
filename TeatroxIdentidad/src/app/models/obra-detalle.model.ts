@@ -1,6 +1,9 @@
+import {v4 as uuid} from 'uuid';
+
 export class ObraDetalle {
     private selected:boolean;
-    etiquetas:string[]
+    etiquetas:string[];
+    id = uuid();
     public votes = 0;
 
     constructor(public nombre:string, public imageUrl:string, public descripcion:string){
