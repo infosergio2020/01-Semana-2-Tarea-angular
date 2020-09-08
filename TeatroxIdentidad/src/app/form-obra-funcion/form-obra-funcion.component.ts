@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { ObraDetalle } from '../models/obra-detalle.model';
+import { fromEvent } from 'rxjs';
+import { map,filter,debounceTime,distinctUntilChanged,switchMap } from 'rxjs/operators';//importamos operadores de rxjs para poder trabajar con pipe
+import { ajax, AjaxResponse } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-form-obra-funcion',
@@ -11,6 +14,7 @@ export class FormObraFuncionComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<ObraDetalle>;
   fg: FormGroup;
   minLongitud = 5;
+  searchResult:string[];
 
   public etiquetas = ['comedia','drama','suspenso','musical','show al aire libre','poco espacio','entradas agotadas'];
   public selectedTag;
@@ -35,7 +39,20 @@ export class FormObraFuncionComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const elemNombre = <HTMLInputElement>document.getElementById('nombre');//estoy eligiendo el elemento de HTML
+    fromEvent(elemNombre,'input') 
+    .pipe(
+      map( (e:KeyboardEvent) => (e.target as HTMLInputElement).value),
+      filter(text => text.length > 4),
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap(()=> ajax('/assets/datos.json'))
+      ).subscribe(AjaxResponse => {
+        console.log(AjaxResponse.response);
+        this.searchResult = AjaxResponse.response;
+      });
+  }
   
   //METODOS PARA FORMULARIO 
   agregarTags(tag:string){

@@ -4,6 +4,9 @@
         <label for="nombre">Nombre *</label>
         <input type="text" class="form-control" id="nombre" placeholder="Ingresar nombre..." [formControl]="fg.controls['nombre']">
         <small>Nombre del titulo de la obra</small>
+        <ul>
+            <li *ngFor="let result of searchResult">{{result}}</li>
+        </ul>
         <div class="ml-4 mt-2 btn btn-warning" *ngIf="fg.controls['nombre'].hasError('required')">nombre requerido!</div>
         <div class="ml-4 mt-2 btn btn-danger" *ngIf="fg.controls['nombre'].hasError('pattern')">nombre invalido! no se admiten numeros en el texto!</div>
         <div class="ml-4 mt-2 btn btn-danger" *ngIf="fg.controls['nombre'].hasError('minLongNombre')">nombre debe tener al menos {{minLongitud}} de largo!</div>

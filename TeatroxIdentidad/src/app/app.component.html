@@ -14,3 +14,5 @@
     </div>
 </nav>
 <router-outlet></router-outlet>
+<hr class="mb-5"> Fecha: {{ time | async}}
+<!-- le estamos diciendo al motor de templates de angular que va a bindear esta imagen de html pero va a ser asincronicamente actualizada (o sea que va a tener que observar esa variable por que luego va a cambiar)-->
