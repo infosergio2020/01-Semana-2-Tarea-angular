@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ObraDetalle } from './../models/obra-detalle.model';
 import { ObrasApiClient } from './../models/obras-api-client.Model';
+import { Store } from "@ngrx/store";
+import { AppState } from "../app.module";
+import { ElegidoFavoritoAction, NuevaObraAction } from '../models/obras-funciones-state.model';
 
 @Component({
   selector: 'app-lista-obras',
@@ -8,17 +11,15 @@ import { ObrasApiClient } from './../models/obras-api-client.Model';
   styleUrls: ['./lista-obras.component.css']
 })
 export class ListaObrasComponent implements OnInit {
-  // preferidos: ObraDetalle[];
   updates: string[];//esto es un log para preferidos 
-  
-  constructor(public obrasApiClient:ObrasApiClient) { 
-    // this.preferidos = [];
+  constructor(public obrasApiClient:ObrasApiClient, private store: Store<AppState>) { 
     this.updates = [];
-    this.obrasApiClient.subscribeOnChange((o:ObraDetalle)=>{
-      if(o!=null){
-        this.updates.push('se ha elegido a '+o.nombre)
-      }
-    })
+    this.store.select(state => state.obras.favorito)//nos vamos a suscribir. A nivel Appstate teniamos obras:ObrasFuncionesState 
+        .subscribe(o => {
+          if(o!=null){
+            this.updates.push('se ha elegido a '+o.nombre)
+          }
+        });
   }
 
   ngOnInit(): void {
@@ -26,28 +27,11 @@ export class ListaObrasComponent implements OnInit {
 
   agregado(o: ObraDetalle) {
     this.obrasApiClient.add(o);
-    return false;//no queremos que recargue
+    this.store.dispatch(new NuevaObraAction(o));
   }
 
   elegido(o:ObraDetalle){
     this.obrasApiClient.elegir(o);
-    //La logica que sigue es para agregar elementos a una lista de preferidos
-    // if (this.preferidos.length === 0) {
-    //   this.preferidos.push(o);  
-    // } else {
-    //   let find = false 
-    //   let count = this.preferidos.length-1;
-    //   while( count >= 0){
-    //     if (this.preferidos[count] === o ){
-    //       find = true;
-    //       break;
-    //     }
-    //     count--;
-    //   }
-    //   if (!find){
-    //     this.preferidos.push(o);
-    //   }
-    // }
-    // console.log(this.preferidos)
+    this.store.dispatch(new ElegidoFavoritoAction(o));
   }
 }

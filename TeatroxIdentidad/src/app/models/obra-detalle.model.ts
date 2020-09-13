@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
 
 export class ObraDetalle {
-    private selected:boolean;
+    private  selected:boolean;
     etiquetas:string[];
     id = uuid();
     public votes = 0;
@@ -13,23 +13,23 @@ export class ObraDetalle {
         //         }
     }
 
-    setEtiquetas(etiquetas:string[]){
+    public setEtiquetas(etiquetas:string[]){
         while (etiquetas.length > 0) {
             this.etiquetas.push(etiquetas.pop());   
         }
     }
 
-    isSelected():boolean{
+     isSelected():boolean{
         return  this.selected;
     }
-    setSelected(s:boolean){
+     setSelected(s:boolean){
         this.selected = s;
     }
 
-    voteUp():any{
+    public voteUp():any{
         this.votes++;
     }
-    voteDown():any{
+    public voteDown():any{
         this.votes--;
     }
 }
