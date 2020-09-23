@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <h4 class="text-white">Entradas</h4>
+    <div class="navbar-collapse collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto ml-4">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./main']" routerLinkActive="router-link-active"> Main </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./mas-info']"> Mas Info </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./',5]">Vuelo 5</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

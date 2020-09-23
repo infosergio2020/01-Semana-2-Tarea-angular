@@ -21,7 +21,7 @@
                         </div>
                         <button class="btn btn-primary" (click)="login(nombUser.value,contra.value)">Ingresar!</button>
                     </form>
-                    <button class="btn btn-default" (click)="logout()" *ngIf="authService.getUser()">Salir!</button>
+                    <button class="btn btn-danger" (click)="logout()" *ngIf="authService.getUser()">Salir!</button>
                 </div>
             </div>
         </div>

@@ -20,21 +20,38 @@ import { ProtectedComponent } from './components/protected/protected/protected.c
 //2 servicios nuevos agregados
 import { AuthService } from './services/auth.service';
 import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
+import { EntradasComponent } from './components/entradas/entradas-component/entradas-component.component';
+import { EntradasMainComponent } from './components/entradas/entradas-main-component/entradas-main-component.component';
+import { EntradasMasInfoComponent } from './components/entradas/entradas-mas-info-component/entradas-mas-info-component.component';
+import { EntradasDetalleComponent } from './components/entradas/entradas-detalle-component/entradas-detalle-component.component';
 
 
 
+export const childrenRoutesEntradas:Routes = [
+  {path:'', redirectTo:'main',pathMatch:'full'},
+  {path: 'main', component: EntradasMainComponent},
+  {path: 'mas-info', component: EntradasMasInfoComponent},
+  {path: ':id', component: EntradasDetalleComponent},
+];
 
 // definiendo direcciones del nav
 const routes: Routes = [
   {path: '', redirectTo:'home',pathMatch: 'full'},
   {path:'home', component: ListaObrasComponent},
-  {path:'obra',component: ObraDetalleComponent},
+  {path:'obra/:id',component: ObraDetalleComponent},
   {path:'login',component: LoginComponent},
   {
     path:'protected',
     component: ProtectedComponent,
     canActivate: [ UsuarioLogueadoGuard ]
+  },
+  {
+    path: 'vuelos',
+    component: EntradasComponent,
+    canActivate: [UsuarioLogueadoGuard],
+    children: childrenRoutesEntradas
   }
+
 ];
 //redux init
 export interface AppState{
@@ -60,7 +77,11 @@ let reducersInitialState = {
     FormObraFuncionComponent,
     ObraDetalleComponent,
     LoginComponent,
-    ProtectedComponent
+    ProtectedComponent,
+    EntradasComponent,
+    EntradasMainComponent,
+    EntradasMasInfoComponent,
+    EntradasDetalleComponent
   ],
   imports: [
     BrowserModule,

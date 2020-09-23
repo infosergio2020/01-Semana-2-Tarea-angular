@@ -7,11 +7,11 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ObrasApiClient{
-	// obras:ObraDetalle[];
+	obras:ObraDetalle[];
 	// current:Subject<ObraDetalle> = new BehaviorSubject<ObraDetalle>(null); //BehaviorSubject es un flujo de eventos en tiempo real(detecta cuando lo setea al current) (empieza en null)
 	
 	constructor(private store:Store<AppState>) {
-	//    this.obras = [];
+	   this.obras = [];
 	}
 
 
@@ -31,9 +31,9 @@ export class ObrasApiClient{
 	// 	return this.obras;
 	// }
 	
-	// getById(id:string):ObraDetalle{
-	// 	return this.obras.filter(function(d){return d.id.toString() === id; })[0];
-	// }
+	getById(id:string):ObraDetalle{
+		return this.obras.filter(function(d){return d.id.toString() === id; })[0];
+	}
 
 	// elegir(o:ObraDetalle){
 		// this.obras.forEach(x=> x.setSelected(false));
