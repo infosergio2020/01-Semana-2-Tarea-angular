@@ -26,7 +26,7 @@ import { EntradasMasInfoComponent } from './components/entradas/entradas-mas-inf
 import { EntradasDetalleComponent } from './components/entradas/entradas-detalle-component/entradas-detalle-component.component';
 
 
-
+//definiendo direccionciones de un sub nav
 export const childrenRoutesEntradas:Routes = [
   {path:'', redirectTo:'main',pathMatch:'full'},
   {path: 'main', component: EntradasMainComponent},
@@ -49,7 +49,7 @@ const routes: Routes = [
     path: 'vuelos',
     component: EntradasComponent,
     canActivate: [UsuarioLogueadoGuard],
-    children: childrenRoutesEntradas
+    children: childrenRoutesEntradas  //integrando rutas de subnavegacion
   }
 
 ];
