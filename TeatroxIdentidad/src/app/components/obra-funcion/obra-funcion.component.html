@@ -18,7 +18,25 @@
                 </li>
             </ul>
         </div>
-        <br>
+
+        <div class="row">
+            <div class="col col-md-8">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="mr-2" href="#" (click)="voteUp()"> <i class="material-icons md-18">thumb_up</i></a>
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+                </div>
+
+                <a href="#" (click)="voteDown()"> <i class="material-icons md-18">thumb_down</i></a>
+            </div>
+            <div class="col col-md-4">
+                {{obra.votes}}
+            </div>
+
+        </div>
 
         <div class="btn-group btn-group-sm row mt-2 ml-4">
             <a class="btn-card mr-2" (click)="ir()">Ir!</a>

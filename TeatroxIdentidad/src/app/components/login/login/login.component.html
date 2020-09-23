@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4 offset-4  mt-4">
+            <div class="card">
+                <div class="card-header text-center bg-primary text-white">
+                    <h1>Login</h1>
+                </div>
+                <img *ngIf="mensajeError" class="card-img-top" alt="" [src]="urlDinamica">
+                <img *ngIf="!mensajeError" class="card-img-top" alt="" [src]="urlDinamica2">
+
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert" *ngIf="mensajeError"> {{mensajeError}} </div>
+                    <form class="form" *ngIf="!authService.getUser()">
+                        <div class="form-group">
+                            <label for="nombreUsuario">Usuario:(type <em>usuario</em>)</label>
+                            <input class="form-control" name="nombreUsuario" #nombUser>
+                        </div>
+                        <div class="form-group">
+                            <label for="contraseña">Contraseña (type <em>contaseña</em>)</label>
+                            <input class="form-control" type="password" name="contraseña" #contra>
+                        </div>
+                        <button class="btn btn-primary" (click)="login(nombUser.value,contra.value)">Ingresar!</button>
+                    </form>
+                    <button class="btn btn-default" (click)="logout()" *ngIf="authService.getUser()">Salir!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

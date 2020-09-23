@@ -8,19 +8,33 @@ import { _runtimeChecksFactory } from '@ngrx/store/src/runtime_checks';
 
 
 import { AppComponent } from './app.component';
-import { ListaObrasComponent } from './lista-obras/lista-obras.component';
-import { ObraFuncionComponent } from './obra-funcion/obra-funcion.component';
-import { FormObraFuncionComponent } from './form-obra-funcion/form-obra-funcion.component';
-import { ObraDetalleComponent } from './obra-detalle/obra-detalle.component';
+import { ListaObrasComponent } from './components/lista-obras/lista-obras.component';
+import { ObraFuncionComponent } from './components/obra-funcion/obra-funcion.component';
+import { FormObraFuncionComponent } from './components/form-obra-funcion/form-obra-funcion.component';
+import { ObraDetalleComponent } from './components/obra-detalle/obra-detalle.component';
 import { ObrasApiClient } from "./models/obras-api-client.Model";
 import { ObrasFuncionesState,reducerObrasFunciones, initializObrasFuncionesState, ObrasFuncionesEffects } from './models/obras-funciones-state.model'
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './components/protected/protected/protected.component';
+//2 servicios nuevos agregados
+import { AuthService } from './services/auth.service';
+import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
+
+
 
 
 // definiendo direcciones del nav
 const routes: Routes = [
   {path: '', redirectTo:'home',pathMatch: 'full'},
   {path:'home', component: ListaObrasComponent},
-  {path:'obra',component: ObraDetalleComponent}
+  {path:'obra',component: ObraDetalleComponent},
+  {path:'login',component: LoginComponent},
+  {
+    path:'protected',
+    component: ProtectedComponent,
+    canActivate: [ UsuarioLogueadoGuard ]
+  }
 ];
 //redux init
 export interface AppState{
@@ -44,7 +58,9 @@ let reducersInitialState = {
     ListaObrasComponent,
     ObraFuncionComponent,
     FormObraFuncionComponent,
-    ObraDetalleComponent
+    ObraDetalleComponent,
+    LoginComponent,
+    ProtectedComponent
   ],
   imports: [
     BrowserModule,
@@ -60,8 +76,13 @@ let reducersInitialState = {
       }
     }), //exportado para redux,  aca estamos registrando todos los reducers y el estado inicial de nuestra aplicacion
     EffectsModule.forRoot([ObrasFuncionesEffects]) //exportado para redux, aca podemos pasar todos los effects ya que es una array
+    ,StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
-  providers: [ObrasApiClient],
+  providers: [
+    ObrasApiClient, AuthService, UsuarioLogueadoGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

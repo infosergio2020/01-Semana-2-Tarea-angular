@@ -4,13 +4,9 @@ export class ObraDetalle {
     private  selected:boolean;
     etiquetas:string[];
     id = uuid();
-    public votes = 0;
 
-    constructor(public nombre:string, public imageUrl:string, public descripcion:string){
+    constructor(public nombre:string, public imageUrl:string, public descripcion:string,public votes:number = 0){
         this.etiquetas = [];
-        // while (etiquetas.length > 0) {
-        //             this.etiquetas.push(etiquetas.pop());   
-        //         }
     }
 
     public setEtiquetas(etiquetas:string[]){

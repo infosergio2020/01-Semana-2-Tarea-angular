@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn } from '@angular/forms';
-import { ObraDetalle } from '../models/obra-detalle.model';
+import { ObraDetalle } from '../../models/obra-detalle.model';
 import { fromEvent } from 'rxjs';
 import { map,filter,debounceTime,distinctUntilChanged,switchMap } from 'rxjs/operators';//importamos operadores de rxjs para poder trabajar con pipe
-import { ajax, AjaxResponse } from 'rxjs/ajax';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-form-obra-funcion',

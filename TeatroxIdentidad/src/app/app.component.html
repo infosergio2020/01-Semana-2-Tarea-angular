@@ -1,18 +1,22 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <a class="navbar-brand" href="#">
         <h1>TeatroxIdentidad</h1>
     </a>
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsSupportedContant" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsSupportedContant">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['/home']">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/obra']">Obra</a>
-            </li>
+            <li class="nav-item active"><a class="nav-link" [routerLink]="['/home']">Home</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['/obra']">Obra</a></li>
         </ul>
     </div>
 </nav>
+
+
+
+
 <router-outlet></router-outlet>
 <hr class="mb-5"> Fecha: {{ time | async}}
 <!-- le estamos diciendo al motor de templates de angular que va a bindear esta imagen de html pero va a ser asincronicamente actualizada (o sea que va a tener que observar esa variable por que luego va a cambiar)-->

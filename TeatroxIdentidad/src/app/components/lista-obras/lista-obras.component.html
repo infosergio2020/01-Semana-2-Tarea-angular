@@ -1,6 +1,6 @@
 <div class="container content">
     <div class="row">
-        <div class="col-md-6	offset-md-3">
+        <div class="col-md-6 offset-md-3">
             <span class="anchor" id="formLogin"></span>
             <!-- form	card	login	with	validation	feedback	-->
             <div class="card mt-4">
@@ -16,10 +16,9 @@
 
     <hr class="mb-5 ">
     <div class="row ">
-        <app-obra-funcion *ngFor="let o of obrasApiClient.getAll(); let i=index" [obra]="o" [idx]="i+1" (clicked)="elegido($event)"></app-obra-funcion>
+        <app-obra-funcion *ngFor="let o of all; let i=index" [obra]="o" [idx]="i+1" (clicked)="elegido($event)"></app-obra-funcion>
     </div>
 
-    <hr class="mb-5">
     <div class="row">
         <table class="table table-dark">
             <thead>
