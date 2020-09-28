@@ -24,6 +24,7 @@ import { EntradasComponent } from './components/entradas/entradas-component/entr
 import { EntradasMainComponent } from './components/entradas/entradas-main-component/entradas-main-component.component';
 import { EntradasMasInfoComponent } from './components/entradas/entradas-mas-info-component/entradas-mas-info-component.component';
 import { EntradasDetalleComponent } from './components/entradas/entradas-detalle-component/entradas-detalle-component.component';
+import { ReservasModule } from './reservas/reservas.module';
 
 
 //definiendo direccionciones de un sub nav
@@ -49,7 +50,7 @@ const routes: Routes = [
     path: 'vuelos',
     component: EntradasComponent,
     canActivate: [UsuarioLogueadoGuard],
-    children: childrenRoutesEntradas  //integrando rutas de subnavegacion
+    children: childrenRoutesEntradas  //integrando rutas de subnavegacion 
   }
 
 ];
@@ -99,10 +100,10 @@ let reducersInitialState = {
     EffectsModule.forRoot([ObrasFuncionesEffects]) //exportado para redux, aca podemos pasar todos los effects ya que es una array
     ,StoreDevtoolsModule.instrument({
       maxAge: 10
-    })
+    }), ReservasModule
   ],
   providers: [
-    ObrasApiClient, AuthService, UsuarioLogueadoGuard
+    AuthService, UsuarioLogueadoGuard
   ],
   bootstrap: [AppComponent]
 })

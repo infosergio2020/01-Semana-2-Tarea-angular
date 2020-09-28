@@ -7,7 +7,8 @@ import { AppState } from "../../app.module";
 @Component({
   selector: 'app-lista-obras',
   templateUrl: './lista-obras.component.html',
-  styleUrls: ['./lista-obras.component.css']
+  styleUrls: ['./lista-obras.component.css'],
+  providers:[ObrasApiClient]
 })
 
 

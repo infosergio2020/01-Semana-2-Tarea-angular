@@ -1,1 +1,20 @@
-<p>obra-detalle works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-4 offset-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <p style="font-weight: 700;">Aca vemos el detalle de una obra de una funcion!</p>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>{{obra.id}}</li>
+                        <li>{{obra.nombre}}</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" [routerLink]="['/home']"> Volver al Inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

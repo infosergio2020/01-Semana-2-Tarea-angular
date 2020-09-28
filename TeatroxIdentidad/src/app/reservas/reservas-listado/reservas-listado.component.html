@@ -1,0 +1,22 @@
+<div class="container">
+    <p>reservas-listado works!</p>
+
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['./',10]">Ir a detalle</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">Ir a login</a>
+        </li>
+    </ul>
+
+    <!-- ./ es relativo a este modulo -->
+    <!-- /login es fuera de este modulo -->
+
+    <div class="col mt-4">
+        <div *ngFor="let r of api.getAll()" class="row">
+            {{r.id}} - {{r.name}}
+        </div>
+    </div>
+
+</div>

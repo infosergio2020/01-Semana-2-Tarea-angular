@@ -40,7 +40,7 @@
 
         <div class="btn-group btn-group-sm row mt-2 ml-4">
             <a class="btn-card mr-2" (click)="ir()">Ir!</a>
-            <a [routerLink]="['/obra']" class="btn-card">Ver Detalles</a>
+            <a [routerLink]="['/obra',obra.id]" class="btn-card"> Ver Detalles</a>
         </div>
         <div class="row mt-4 ml-2">
             <span class="btn btn-dark" *ngIf="obra.isSelected()"> <span ngNonBindeable> -PREFERIDO- </span> </span>

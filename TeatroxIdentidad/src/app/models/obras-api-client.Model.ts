@@ -12,6 +12,16 @@ export class ObrasApiClient{
 	
 	constructor(private store:Store<AppState>) {
 	   this.obras = [];
+	   this.store.select(state => state.obras)
+		.subscribe((data)=> {
+			console.log('obras sub store');
+			console.log(data);
+			this.obras = data.items;
+		});
+		this.store.subscribe((data) => {
+			console.log('all store');
+			console.log(data);			
+		});
 	}
 
 
@@ -23,17 +33,19 @@ export class ObrasApiClient{
 		this.store.dispatch(new ElegidoFavoritoAction(o));
 	}
 
-	// add(o:ObraDetalle){
-	// 	this.obras.push(o);
-	//   }
 
-	// getAll(){
-	// 	return this.obras;
-	// }
 	
 	getById(id:string):ObraDetalle{
 		return this.obras.filter(function(d){return d.id.toString() === id; })[0];
 	}
+
+	// add(o:ObraDetalle){
+	// 	this.obras.push(o);
+	//   }
+
+	// getAll(): ObraDetalle[]{
+	// 	return this.obras;
+	// }
 
 	// elegir(o:ObraDetalle){
 		// this.obras.forEach(x=> x.setSelected(false));
