@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { RouterModule,Routes } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { StoreModule as NxRxStoreModule, ActionReducerMap, Store  } from '@ngrx/store'
@@ -25,6 +25,17 @@ import { EntradasMainComponent } from './components/entradas/entradas-main-compo
 import { EntradasMasInfoComponent } from './components/entradas/entradas-mas-info-component/entradas-mas-info-component.component';
 import { EntradasDetalleComponent } from './components/entradas/entradas-detalle-component/entradas-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
+
+//inyeccion de dependencias de varibales de configuracion
+export interface AppConfig{
+  apiEndPoint:string;
+}
+const APP_CONFIG_VALUE: AppConfig = {
+  apiEndPoint: 'http://localhost:3000'
+};
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+
+
 
 
 //definiendo direccionciones de un sub nav
@@ -103,7 +114,8 @@ let reducersInitialState = {
     }), ReservasModule
   ],
   providers: [
-    AuthService, UsuarioLogueadoGuard
+    AuthService, UsuarioLogueadoGuard,
+    {provide:APP_CONFIG,useValue: APP_CONFIG_VALUE}
   ],
   bootstrap: [AppComponent]
 })
