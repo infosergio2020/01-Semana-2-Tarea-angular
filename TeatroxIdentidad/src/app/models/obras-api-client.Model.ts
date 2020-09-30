@@ -1,59 +1,51 @@
 import { ObraDetalle } from './obra-detalle.model';
-// import { Subject, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.module';
+import { AppConfig, AppState, APP_CONFIG, db } from '../app.module';
 import { ElegidoFavoritoAction, NuevaObraAction } from './obras-funciones-state.model';
-import { Injectable } from '@angular/core';
-
+import { forwardRef, Inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 @Injectable()
 export class ObrasApiClient{
-	obras:ObraDetalle[];
-	// current:Subject<ObraDetalle> = new BehaviorSubject<ObraDetalle>(null); //BehaviorSubject es un flujo de eventos en tiempo real(detecta cuando lo setea al current) (empieza en null)
-	
-	constructor(private store:Store<AppState>) {
-	   this.obras = [];
-	   this.store.select(state => state.obras)
+	obras:ObraDetalle[] = [];
+
+	constructor(
+		private store:Store<AppState>,
+		@Inject(forwardRef(()=> APP_CONFIG)) private config: AppConfig,
+		private http:HttpClient//usamos esto por que tenemos que hacer unas llamadas al webservice
+		) {
+	   this.store
+	   	.select(state => state.obras)
 		.subscribe((data)=> {
 			console.log('obras sub store');
 			console.log(data);
 			this.obras = data.items;
 		});
-		this.store.subscribe((data) => {
+		this.store
+		.subscribe((data) => {
 			console.log('all store');
 			console.log(data);			
 		});
 	}
 
-
 	add(o:ObraDetalle){
-	  this.store.dispatch(new NuevaObraAction(o));
+		const headers : HttpHeaders = new HttpHeaders({'X-API-TOKEN':'token-seguridad'});
+		const req = new HttpRequest ('POST',this.config.apiEndPoint +'/my',{ nuevo: o.nombre },{ headers:headers });
+		this.http.request(req).subscribe((data:HttpResponse<{}>)=>{//estamos usando observables en vez de promesas por eso nos suscribimos al http response
+			if(data.status === 200){
+				this.store.dispatch(new NuevaObraAction(o));
+				const myDb = db;
+				myDb.obras.add(o);
+				console.log('todas las obras de la db|');
+				myDb.obras.toArray().then(obras => console.log(obras))
+			}
+		});
 	}
 
 	elegir(o:ObraDetalle){
 		this.store.dispatch(new ElegidoFavoritoAction(o));
 	}
 
-
-	
 	getById(id:string):ObraDetalle{
 		return this.obras.filter(function(d){return d.id.toString() === id; })[0];
 	}
-
-	// add(o:ObraDetalle){
-	// 	this.obras.push(o);
-	//   }
-
-	// getAll(): ObraDetalle[]{
-	// 	return this.obras;
-	// }
-
-	// elegir(o:ObraDetalle){
-		// this.obras.forEach(x=> x.setSelected(false));
-		// o.setSelected(true);
-		// this.current.next(o);
-
-	//este metodo es para que los demas se suscriban a las actualizaciones
-	// subscribeOnChange(fn){
-	// 	this.current.subscribe(fn);
-	// }
 }

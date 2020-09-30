@@ -74,8 +74,8 @@ export class FormObraFuncionComponent implements OnInit {
   
 
   guardar(nombre: string, url: string, descripcion:string): boolean {
-    const o = new ObraDetalle(nombre,url,descripcion);
-    o.setEtiquetas(this.tags)
+    const o = new ObraDetalle(nombre,url,descripcion,0,this.tags);
+    // o.setEtiquetas(this.tags)
     this.quitarTags()
     this.onItemAdded.emit(o);
     return false;

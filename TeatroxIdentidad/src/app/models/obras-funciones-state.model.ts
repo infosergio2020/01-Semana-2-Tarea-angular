@@ -4,7 +4,7 @@ import { Actions,Effect,ofType } from "@ngrx/effects";
 import { Observable,of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ObraDetalle } from "./obra-detalle.model";
-
+import { HttpClientModule } from '@angular/common/http';
 
 // Store es el almacen que contiene al estado y sobre el store vamos a disparar acciones
 // ESTADO
@@ -14,7 +14,7 @@ export interface ObrasFuncionesState{
     favorito: ObraDetalle;
 }
 
-// export function initializObrasFuncionesState() {
+// export const initializObrasFuncionesState = function () {
 //     return{
 //         items: [],
 //         loading: false,
@@ -22,13 +22,16 @@ export interface ObrasFuncionesState{
 //     }
 // }
 
-export const initializObrasFuncionesState = function () {
+
+export function initializObrasFuncionesState() {
     return{
         items: [],
         loading: false,
         favorito: null
     }
 }
+
+
 
 // ACCIONES
 export enum ObrasFuncionesActionTypes{
@@ -37,7 +40,7 @@ export enum ObrasFuncionesActionTypes{
     ELEGIDO_FAVORITO = '[Obras Funciones] Favorito',
     VOTE_UP = '[Obras Funciones] Vote Up',
     VOTE_DOWN = '[Obras Funciones] Vote Down',
-    INIT_MY_DATA = '[Obras Funciones ] Init My Data'
+    INIT_MY_DATA = '[Obras Funciones] Init My Data'
 }
 
 //implementacion de las acciones
@@ -82,7 +85,7 @@ export function reducerObrasFunciones(
             const obras: string[] = (action as InitMyDataAction).obras;
             return{
                 ...state,
-                items: obras.map((o)=>new ObraDetalle(o,'',''))
+                items: obras.map((o)=>new ObraDetalle('','','',0,[]))
             };
         }
         case ObrasFuncionesActionTypes.NUEVA_OBRA: {
