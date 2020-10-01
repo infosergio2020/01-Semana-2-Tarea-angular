@@ -7,6 +7,8 @@
 /*	card	details	start	 */
 
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i,900, 900i|Roboto+Condensed:400, 400i, 700, 700i');
+@import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';
 section {
     padding: 100px 0;
 }

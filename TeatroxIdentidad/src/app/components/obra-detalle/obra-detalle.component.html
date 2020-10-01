@@ -17,4 +17,16 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12 col-12">
+            <mgl-map [style]="style" [zoom]="[2]">
+                <mgl-marker [lngLat]="[-75.551012,10.421185]">
+                    <div onclick="alert('hola')" class="marker">
+                        Hola mundo!
+                    </div>
+                </mgl-marker>
+            </mgl-map>
+        </div>
+
+    </div>
 </div>

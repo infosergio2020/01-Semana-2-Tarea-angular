@@ -8,6 +8,11 @@ import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular
 //import { DBConfig, NgxIndexedDBModule } from 'node_modules/ngx-indexed-db'; //probar luego
 import Dexie from 'dexie';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+
+
+
+
 
 import { AppComponent } from './app.component';
 import { ListaObrasComponent } from './components/lista-obras/lista-obras.component';
@@ -185,7 +190,6 @@ function HttpLoaderFactory(http: HttpClient) {
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -223,7 +227,8 @@ function HttpLoaderFactory(http: HttpClient) {
         useFactory:(HttpLoaderFactory),
         deps:[HttpClient]
       }
-    })
+    }),
+    NgxMapboxGLModule
   
   ],
   providers: [
