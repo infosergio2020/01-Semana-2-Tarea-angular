@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';//para poder manejar las peticiones (servicios REST)
 //import { DBConfig, NgxIndexedDBModule } from 'node_modules/ngx-indexed-db'; //probar luego
 import Dexie from 'dexie';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
 import { ListaObrasComponent } from './components/lista-obras/lista-obras.component';
@@ -27,6 +28,8 @@ import { EntradasMasInfoComponent } from './components/entradas/entradas-mas-inf
 import { EntradasDetalleComponent } from './components/entradas/entradas-detalle-component/entradas-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
 import { ObraDetalle } from './models/obra-detalle.model';
+import { from, Observable } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 
 
 // ngxIndexedDBModule config
@@ -114,21 +117,69 @@ class AppLoadService{
 
 
 // dexie db
+export class Translation{//guardamos en almacenamiento local lo que nos trajimos por web service esto es para no perder las traducciones que nos traemos por el servidor remoto por ejemplo cuando recargan la pagina...
+  constructor(public id:number,public lang:string,public key:string,public value:string){}
+}
+
+
 @Injectable({
   providedIn:'root'
 })
 export class MyDataBase extends Dexie{
   obras: Dexie.Table<ObraDetalle,number>;
+  translations: Dexie.Table<Translation,number>;
   constructor(){
     super('MyDataBase');
     this.version(1).stores({  //creamos la 1er version de nuestra base de datos que va a tener 
-      obras: '++id,nombre,imagenUrl,descripcion,votes,etiquetas',//aca van los campos de obradetalle component
+      obras: '++id,nombre,imagenUrl,descripcion,votes,etiquetas'//aca van los campos de obradetalle component
+    });
+    this.version(2).stores({ //esto es migracion o versionado de base de datos
+      obras: '++id,nombre,imagenUrl,descripcion,votes,etiquetas',
+      translations: '++id,lang,key,value'
     });
   }
 }
 
 export const db = new MyDataBase();
 // dexie db FIN
+
+// i18n ini
+class TranslationLoader implements TranslateLoader {
+  constructor(private http: HttpClient) { }
+
+  getTranslation(lang: string): Observable<any> {
+    const promise = db.translations
+                      .where('lang')
+                      .equals(lang)
+                      .toArray()
+                      .then(results => {
+                                        if (results.length === 0) {
+                                          return this.http
+                                            .get<Translation[]>(APP_CONFIG_VALUE.apiEndPoint + '/api/translation?lang=' + lang)
+                                            .toPromise()
+                                            .then(apiResults => {
+                                              db.translations.bulkAdd(apiResults);
+                                              return apiResults;
+                                            });
+                                        }
+                                        return results;
+                                      }).then((traducciones) => {
+                                        console.log('traducciones cargadas:');
+                                        console.log(traducciones);
+                                        return traducciones;
+                                      }).then((traducciones) => {
+                                        return traducciones.map((t) => ({ [t.key]: t.value}));
+                                      });
+   return from(promise).pipe(flatMap((elems) => from(elems)));
+  }
+}
+
+function HttpLoaderFactory(http: HttpClient) {
+  return new TranslationLoader(http);
+}
+
+//i18n FIN
+
 
 
 
@@ -163,11 +214,16 @@ export const db = new MyDataBase();
           strictActionImmutability: false
       }
     }), //exportado para redux,  aca estamos registrando todos los reducers y el estado inicial de nuestra aplicacion
-    EffectsModule.forRoot([ObrasFuncionesEffects]) //exportado para redux, aca podemos pasar todos los effects ya que es una array
-    ,StoreDevtoolsModule.instrument({
-      maxAge: 10
-    }), 
+    EffectsModule.forRoot([ObrasFuncionesEffects]), //exportado para redux, aca podemos pasar todos los effects ya que es una array
+    StoreDevtoolsModule.instrument({maxAge: 10}), 
     ReservasModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory:(HttpLoaderFactory),
+        deps:[HttpClient]
+      }
+    })
   
   ],
   providers: [

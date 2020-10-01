@@ -25,14 +25,15 @@
         <form>
             <div class="form-group">
                 <label for="descripciones ">Etiquetas</label>
-                <select class="form-control " name="select " [(ngModel)]="selectedTag">
-                <option *ngFor="let etiq of etiquetas">{{etiq}}</option> 
-            </select>
+                <!-- <select class="form-control " name="select " [(ngModel)]="selectedTag"> -->
+                <select class="form-control " name="select " [(ngModel)]="selectedTag" (change)="agregarTags(selectedTag)">
+                    <option *ngFor="let etiq of etiquetas">{{etiq}}</option>
+                </select>
                 <small>este campo es opcional</small>
             </div>
             <div class="form-group">
                 <div class="btn-group " role="group ">
-                    <button class="btn btn-outline-primary mt-2 " (click)="agregarTags(selectedTag) ">agregar Tag</button>
+                    <!-- <button class="btn btn-outline-primary mt-2 " (click)="agregarTags(selectedTag) ">agregar Tag</button> -->
                     <button class="btn btn-outline-secondary mt-2 " (click)="quitarTags() ">Quitar tags</button>
                 </div>
             </div>

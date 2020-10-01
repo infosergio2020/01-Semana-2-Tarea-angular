@@ -1,6 +1,16 @@
+<div class="page-header">
+    <div style="float: right;">
+        <select (change)="translate.use($event.target.value)">
+            <option value="es">Español</option>
+            <option value="fr">Frances</option>
+            <option value="en">Ingles</option>
+        </select>
+    </div>
+</div>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <a class="navbar-brand" href="#">
-        <h1>TeatroxIdentidad</h1>
+        <h1>{{title}} <b [innerHTML]="'HOLA' | translate"></b></h1>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsSupportedContant" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

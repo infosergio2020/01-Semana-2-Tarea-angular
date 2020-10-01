@@ -57,18 +57,21 @@ export class FormObraFuncionComponent implements OnInit {
   agregarTags(tag:string){
     console.log('el tag seleccionado es: ',this.selectedTag)
     if (this.antselectedTag !== this.selectedTag) {
+      console.log('no selecciones una etiqueta similar a la anteriormente seleccionada');
       this.antselectedTag = tag;
-      this.tags.push(tag);
+      
+      if ( this.tags.indexOf(this.selectedTag) == -1){ //verifico que la etiqueta no fue sido agregada anteriormente
+        this.tags.push(tag);
+      }
       console.log(this.tags)      
     }
     return false;
   }
 
-  quitarTags(){
-    while(this.tags.length > 0) {
-      this.tags.pop();
-    }
+  quitarTags(){//limpio todas las ocurencias agregadas y las variables de entrada para seleccion
+    this.tags.splice(0,this.tags.length);
     this.antselectedTag = '';
+    this.selectedTag = '';
     return false;
   }
   
