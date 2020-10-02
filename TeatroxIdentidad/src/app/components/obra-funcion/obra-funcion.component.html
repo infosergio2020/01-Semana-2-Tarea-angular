@@ -1,4 +1,4 @@
-<div class="card-content">
+<div class="card-content" [@esFavorito]="obra.isSelected() ?'estadoFavorito':'estadoNoFavorito' ">
     <div class="card-img">
         <img src="https://placeimg.com/380/230/nature" alt="">
         <span class="ml-3"><h4>{{position}}</h4></span>

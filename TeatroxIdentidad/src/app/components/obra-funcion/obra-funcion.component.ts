@@ -3,12 +3,30 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.module';
 import { ObraDetalle } from '../../models/obra-detalle.model';
 import { VoteDownAction, VoteUpAction } from '../../models/obras-funciones-state.model';
+import { trigger,state,style,transition,animate } from '@angular/animations';
 
 @Component({
   selector: 'app-obra-funcion',
   templateUrl: './obra-funcion.component.html',
-  styleUrls: ['./obra-funcion.component.css']
+  styleUrls: ['./obra-funcion.component.css'],
+  animations: [ 
+    trigger('esFavorito',[
+      state('estadoFavorito',style({
+        backgroundColor:'PaleTurquoise'
+      })),
+      state('estadoNoFavorito',style({
+        backgroundColor:'WhiteSmoke'
+      })),
+      transition('estadoNoFavorito => estadoFavorito',[
+        animate('3s')
+      ]),
+      transition('estadoNoFavorito => estadoFavorito',[
+        animate('1s')
+      ]),
+    ])
+  ]
 })
+
 export class ObraFuncionComponent implements OnInit {
   @Input() obra:ObraDetalle; //nombre es susceptible de pasar parametro en el tag app obra funcion en nuestra plantilla
   @Input('idx') position: number;

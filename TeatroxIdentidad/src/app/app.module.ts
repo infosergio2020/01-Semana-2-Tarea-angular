@@ -7,9 +7,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';//para poder manejar las peticiones (servicios REST)
 //import { DBConfig, NgxIndexedDBModule } from 'node_modules/ngx-indexed-db'; //probar luego
 import Dexie from 'dexie';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';//modulo para servicios de traduccion
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';//modulo para el mapa
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 
@@ -35,6 +35,7 @@ import { ReservasModule } from './reservas/reservas.module';
 import { ObraDetalle } from './models/obra-detalle.model';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+import { EspiameDirective } from './espiame.directive';
 
 
 // ngxIndexedDBModule config
@@ -202,7 +203,8 @@ function HttpLoaderFactory(http: HttpClient) {
     EntradasComponent,
     EntradasMainComponent,
     EntradasMasInfoComponent,
-    EntradasDetalleComponent
+    EntradasDetalleComponent,
+    EspiameDirective
   ],
   imports: [
     BrowserModule,
@@ -228,7 +230,8 @@ function HttpLoaderFactory(http: HttpClient) {
         deps:[HttpClient]
       }
     }),
-    NgxMapboxGLModule
+    NgxMapboxGLModule,
+    BrowserAnimationsModule
   
   ],
   providers: [

@@ -16,7 +16,7 @@
 
     <hr class="mb-5 ">
     <div class="row ">
-        <app-obra-funcion *ngFor="let o of all; let i=index" [obra]="o" [idx]="i+1" (clicked)="elegido($event)"></app-obra-funcion>
+        <app-obra-funcion *ngFor="let o of all; let i=index" [obra]="o" [idx]="i+1" (clicked)="elegido($event)" appEspiame></app-obra-funcion>
     </div>
 
     <div class="row">
