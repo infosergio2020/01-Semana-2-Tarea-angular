@@ -1,7 +1,8 @@
 import { ObraDetalle } from './obra-detalle.model';
 import { Store } from '@ngrx/store';
 import { AppConfig, AppState, APP_CONFIG, db } from '../app.module';
-import { ElegidoFavoritoAction, NuevaObraAction } from './obras-funciones-state.model';
+//se cambio el archivo que tenia las acciones
+import { ElegidoFavoritoAction, NuevaObraAction } from './ngrx-obras/obras.actions';
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 @Injectable()

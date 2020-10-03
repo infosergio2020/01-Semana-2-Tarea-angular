@@ -1,8 +1,8 @@
-<form [formGroup]="fg" (ngSubmit)="guardar( fg.controls['nombre'].value, fg.controls['url'].value, fg.controls['descripcion'].value)">
+<form class="form" [formGroup]="fg" (ngSubmit)="guardar( fg.controls['nombre'].value, fg.controls['url'].value, fg.controls['descripcion'].value)">
 
     <div class="form-group">
         <label for="nombre">Nombre *</label>
-        <input type="text" class="form-control" id="nombre" placeholder="Ingresar nombre..." [formControl]="fg.controls['nombre']">
+        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresar nombre..." [formControl]="fg.controls['nombre']">
         <small>Nombre del titulo de la obra</small>
         <ul>
             <li *ngFor="let result of searchResult">{{result}}</li>
@@ -11,13 +11,13 @@
         <div class="mt-2 " *ngIf="fg.controls['nombre'].hasError('pattern')"><span class="badge badge-danger p-2">Nombre invalido! no se admiten numeros en el texto!</span> </div>
         <div class="mt-2 " *ngIf="fg.controls['nombre'].hasError('minLongNombre')"><span class="badge badge-danger p-2">Nombre debe tener al menos {{minLongitud}} de largo!</span></div>
     </div>
-    <div class=" form-group ">
+    <div class="form-group">
         <label for="Imagen Url ">Imagen	Url</label>
-        <input type="text " class="form-control " id="imagenUrl " placeholder="Ingresar url... " [formControl]="fg.controls['url']">
+        <input type="text " class="form-control " id="imagenUrl" name="imagenUrl" placeholder="Ingresar url... " [formControl]="fg.controls['url']">
     </div>
     <div class="form-group">
         <label for="descripciones ">Descripcion *</label>
-        <input type="text " class="form-control " id="descripciones " placeholder="Ingresar descripcion... " [formControl]="fg.controls['descripcion']">
+        <input type="text " class="form-control " id="descripciones" name="descripciones" placeholder="Ingresar descripcion... " [formControl]="fg.controls['descripcion']">
         <small>es recomendable que ingrese una descripcion simple, clara y precisa</small>
         <div class="mt-2" *ngIf="fg.controls['descripcion'].hasError('required')"><span class="badge badge-warning p-2">Descripcion requerida!</span></div>
     </div>
@@ -44,7 +44,7 @@
             <span *ngFor="let tag of tags " class="col badge badge-success p-2 mr-1 mt-2">{{tag}}</span>
         </div>
     </div>
-    <div class="form-group mt-2 ">
-        <button type="submit " class="btn btn-primary " *ngIf="fg.valid"> Guardar datos!</button>
-    </div>
+    <!-- <div class="form-group mt-2 "> -->
+    <input type="submit" class="btn btn-primary" *ngIf="fg.valid" value="Guardar datos!">
+    <!-- </div> -->
 </form>

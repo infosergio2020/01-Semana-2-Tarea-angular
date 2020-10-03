@@ -21,6 +21,12 @@ import { FormObraFuncionComponent } from './components/form-obra-funcion/form-ob
 import { ObraDetalleComponent } from './components/obra-detalle/obra-detalle.component';
 import { ObrasApiClient } from "./models/obras-api-client.Model";
 import { ObrasFuncionesState,reducerObrasFunciones, initializObrasFuncionesState, ObrasFuncionesEffects, InitMyDataAction } from './models/obras-funciones-state.model'
+//nuevos import para redux
+// import { ObrasFuncionesState,initializObrasFuncionesState } from './models/ngrx-obras/obras.states';
+// import { InitMyDataAction, ObrasFuncionesActionTypes } from './models/ngrx-obras/obras.actions';
+// import { ObrasFuncionesEffects,reducerObrasFunciones } from './models/ngrx-obras/obras.reducers';
+
+
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
@@ -36,6 +42,7 @@ import { ObraDetalle } from './models/obra-detalle.model';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { EspiameDirective } from './espiame.directive';
+import { TrackearClickDirective } from './trackear-click.directive';
 
 
 // ngxIndexedDBModule config
@@ -95,7 +102,7 @@ export interface AppState{
 }
 
 const reducers: ActionReducerMap<AppState> = {
-  obras: reducerObrasFunciones  //definimos los reducers globales de la aplicacion
+  obras: reducerObrasFunciones,  //definimos los reducers globales de la aplicacion
 }
 
 let reducersInitialState = {
@@ -204,7 +211,8 @@ function HttpLoaderFactory(http: HttpClient) {
     EntradasMainComponent,
     EntradasMasInfoComponent,
     EntradasDetalleComponent,
-    EspiameDirective
+    EspiameDirective,
+    TrackearClickDirective
   ],
   imports: [
     BrowserModule,

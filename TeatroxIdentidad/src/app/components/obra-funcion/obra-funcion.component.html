@@ -23,14 +23,15 @@
             <div class="col col-md-8">
                 <div class="row">
                     <div class="col-6">
-                        <a class="mr-2" href="#" (click)="voteUp()"> <i class="material-icons md-18">thumb_up</i></a>
+                        <!-- taggeamos los enlaces de vote up/down -->
+                        <a class="mr-2" href="#" (click)="voteUp()" appTrackearClick data-trackear-tags="obra_vote_up lista_obras_item"> <i class="material-icons md-18">thumb_up</i></a>
                     </div>
                     <div class="col-6">
 
                     </div>
                 </div>
 
-                <a href="#" (click)="voteDown()"> <i class="material-icons md-18">thumb_down</i></a>
+                <a href="#" (click)="voteDown()" appTrackearClick data-trackear-tags="obra_vote_down lista_obras_item"> <i class="material-icons md-18">thumb_down</i></a>
             </div>
             <div class="col col-md-4">
                 {{obra.votes}}
@@ -39,7 +40,7 @@
         </div>
 
         <div class="btn-group btn-group-sm row mt-2 ml-4">
-            <a class="btn-card mr-2" (click)="ir()">Ir!</a>
+            <a class="btn-card mr-2" (click)="ir()" appTrackearClick data-trackear-tags="obra_elegir_preferido lista_obras_item">Ir!</a>
             <a [routerLink]="['/obra',obra.id]" class="btn-card"> Ver Detalles</a>
         </div>
         <div class="row mt-4 ml-2">

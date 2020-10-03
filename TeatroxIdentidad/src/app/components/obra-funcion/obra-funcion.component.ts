@@ -2,7 +2,7 @@ import { Component, OnInit, Input, HostBinding,EventEmitter, Output} from '@angu
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.module';
 import { ObraDetalle } from '../../models/obra-detalle.model';
-import { VoteDownAction, VoteUpAction } from '../../models/obras-funciones-state.model';
+import { VoteDownAction, VoteUpAction } from '../../models/ngrx-obras/obras.actions'
 import { trigger,state,style,transition,animate } from '@angular/animations';
 
 @Component({

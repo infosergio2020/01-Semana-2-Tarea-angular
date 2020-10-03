@@ -60,13 +60,13 @@ export class VoteUpAction implements Action {
   }
 
 export class VoteDownAction implements Action {
-type = ObrasFuncionesActionTypes.VOTE_DOWN;
-constructor(public obra: ObraDetalle) {}
+    type = ObrasFuncionesActionTypes.VOTE_DOWN;
+    constructor(public obra: ObraDetalle) {}
 }
 
 export class InitMyDataAction implements Action {
-type = ObrasFuncionesActionTypes.INIT_MY_DATA;
-constructor(public obras: string[]) {}
+    type = ObrasFuncionesActionTypes.INIT_MY_DATA;
+    constructor(public obras: string[]) {}
 }
 
 
@@ -85,7 +85,7 @@ export function reducerObrasFunciones(
             const obras: string[] = (action as InitMyDataAction).obras;
             return{
                 ...state,
-                items: obras.map((o)=>new ObraDetalle('','','',0,[]))
+                items: obras.map((o)=>new ObraDetalle(o,'','',0,[])) //NOTA el parametro o corresponde al string del constructor de la clase InitMyDataAction
             };
         }
         case ObrasFuncionesActionTypes.NUEVA_OBRA: {
@@ -132,4 +132,3 @@ export class ObrasFuncionesEffects{
     );
     constructor(private actions$: Actions){}
 }
-
