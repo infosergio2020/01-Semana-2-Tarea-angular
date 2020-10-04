@@ -27,11 +27,12 @@ module.exports = function(config) {
         autoWatch: false,
         browsers: ['Chrome', 'ChromeHeadless', 'ChromeHeadlessCI'],
         customLaunchers: {
-            chromeHeadlessCI: {
-                base: 'ChromeDeadless',
-                flags: ['--no-sandbox', '--disable-gpu', '--disable-translate', 'disable-extensions', '--remote-debugging-port=9233']
+            ChromeHeadlessCI: {
+                base: 'ChromeHeadless',
+                flags: ['--no-sandbox', '--disable-gpu', '--disable-translate', '--disable-extensions', '--remote-debugging-port=9223']
             }
-        },
-        singleRun: false
+        }
+        /*,
+            singleRun: false*/
     });
 };
